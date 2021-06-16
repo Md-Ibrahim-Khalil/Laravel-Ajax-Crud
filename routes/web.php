@@ -20,3 +20,8 @@ Route::get('/', function () {
 
 Route::get('/ajax',[TeacherController::class,'index']);
 Route::get('/teacher/all',[TeacherController::class,'allData']);
+Route::post('/teacher/store/',[TeacherController::class,'storeData']);
+Route::get('/teacher/edit/{id}',[TeacherController::class,'editData']);
+Route::post('/teacher/update/{id}',[TeacherController::class,'updateData']);
+Route::get('/teacher/delete/{id}',[TeacherController::class,'deleteData']);
+// Route::get('delete/{id}', 'TeacherController@destroy')->name('teacher.delete');

@@ -45,9 +45,22 @@ class TeacherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeData(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'title' => 'required',
+            'institute' => 'required',
+        ]);
+
+        $data = Teacher::insert([
+            
+            'name' => $request->name,
+            'title' => $request->title,
+            'institute' => $request->institute
+        ]);
+        
+        return response()->json($data);
     }
 
     /**
@@ -67,9 +80,10 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editData($id)
     {
-        //
+        $data = Teacher::findOrFail($id);
+        return response()->json($data);
     }
 
     /**
@@ -79,9 +93,22 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateData(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'title' => 'required',
+            'institute' => 'required',
+        ]);
+
+        $data = Teacher::findOrFail($id)->update([
+            
+            'name' => $request->name,
+            'title' => $request->title,
+            'institute' => $request->institute,
+        ]);
+        
+        return response()->json($data);
     }
 
     /**
@@ -92,6 +119,8 @@ class TeacherController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Teacher::destroy($id);
+        Alert::success('Success', 'Item Deleted Successfully');
+        return back();
     }
 }
